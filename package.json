@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bluebird": "^3.5.0",
+    "ramda": "^0.23.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
