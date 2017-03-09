@@ -44,6 +44,7 @@ export const init = topic =>
             gifUrl: ''
         },
         Effects.promise(fetchRandomGif, topic))
+        //Effects.none())
 
 export const reducer = (state, action) => {
     switch (action.type) {
@@ -70,4 +71,5 @@ export const view = ({ model, dispatch }) =>
             onClick={() => dispatch(requestMore())}>More</button>
     </div>
 
-export const connectedView = Api.connectView(state => state.randomGif, view)
+export const connectedView =
+    Api.connectView(state => state.randomGif, view)
