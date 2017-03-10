@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider, connect } from 'react-redux'
-import { combineReducers, install, loop, Effects } from 'redux-loop'
+import { combineReducers, install } from 'redux-loop'
 import createLogger from 'redux-logger'
 
 export const log = x => {
