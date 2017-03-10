@@ -66,7 +66,7 @@ export const view = ({ model, dispatch }) =>
     <div>
         <img
             src={R.prop('gifUrl', model)}
-            style={{widht: '200px'}} />
+            style={{width: '200px'}} />
         <button
             onClick={() => dispatch(requestMore())}>More</button>
     </div>
