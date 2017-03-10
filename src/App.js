@@ -1,36 +1,27 @@
 import React from 'react'
-import { simpleApp } from './Api'
+import * as Api from './Api'
 import * as Counter from './Counter'
 import * as CounterPair from './CounterPair'
 import * as CounterList from './CounterList'
 import * as RandomGif from './RandomGif'
 import * as RandomGifPair from './RandomGifPair'
 import * as RandomGifList from './RandomGifList'
-import { loop, Effects } from 'redux-loop'
 
-const [randomGifModel, randomGifEffect] = RandomGif.init('cat')
-const [randomGifPairModel, randomGifPairEffect] = RandomGifPair.init('cat', 'dog')
-const [randomGifListModel, randomGifListEffect] = RandomGifList.init(['cat', 'dog'])
-
-const init = loop({
+const init = Api.init({
   counter: Counter.init(0),
   counterPair: CounterPair.init(0, 0),
   counterList: CounterList.init([0, 0, 0]),
-  randomGif: randomGifModel,
-  randomGifTuple: randomGifPairModel,
-  randomGifList: randomGifListModel
-}, Effects.batch([
-  randomGifEffect,
-  randomGifPairEffect,
-  randomGifListEffect
-]))
+  randomGif: RandomGif.init('cat'),
+  randomGifPair: RandomGifPair.init('cat', 'dog'),
+  randomGifList: RandomGifList.init(['cat', 'dog', 'mouse'])
+})
 
 const reducer = {
   counter: Counter.reducer,
   counterPair: CounterPair.reducer,
   counterList: CounterList.reducer,
   randomGif: RandomGif.reducer,
-  randomGifTuple: RandomGifPair.reducer,
+  randomGifPair: RandomGifPair.reducer,
   randomGifList: RandomGifList.reducer
 }
 
@@ -49,6 +40,6 @@ const view = () =>
     <RandomGifList.connectedView />
   </div>
 
-const App = simpleApp(init, reducer, view)
+const App = Api.simpleApp(init, reducer, view)
 
 export default App

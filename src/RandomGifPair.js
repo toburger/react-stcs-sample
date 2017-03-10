@@ -54,4 +54,4 @@ export const view = ({ model, dispatch }) =>
     </div>
 
 export const connectedView =
-    Api.connectView(state => state.randomGifTuple, view)
+    Api.connectView(state => state.randomGifPair, view)
