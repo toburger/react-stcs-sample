@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStore, applyMiddleware, compose } from 'redux'
-import { Provider, connect } from 'react-redux'
+import { Provider, connect as reduxConnect } from 'react-redux'
 import { combineReducers, install, loop, Effects, isLoop, getEffect, getModel } from 'redux-loop'
 import R from 'ramda'
 import createLogger from 'redux-logger'
@@ -16,8 +16,8 @@ export const init = (inits = []) => {
   return loop(models, Effects.batch(Object.values(effects)))
 }
 
-export const connectView = (f, C) =>
-    connect(state => ({ model: f(state) }))(C)
+export const connect = (f, C) =>
+    reduxConnect(state => ({ model: f(state) }))(C)
 
 const createAppStore = (reducer, initialState) =>
   createStore(combineReducers(reducer), initialState, compose(

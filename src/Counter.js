@@ -1,5 +1,4 @@
 import React from 'react'
-import { connectView } from './Api'
 
 export const inc = (amount = 1) => ({
     type: 'INC',
@@ -30,6 +29,3 @@ export const view = ({model, dispatch}) =>
         <span>{model}</span>
         <button onClick={() => dispatch(dec())}>-</button>
     </div>
-
-export const connectedView =
-    connectView(state => state.counter, view)

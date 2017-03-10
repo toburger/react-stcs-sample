@@ -1,6 +1,5 @@
 import React from 'react'
 import * as RandomGif from './RandomGif'
-import * as Api from './Api'
 import { loop, Effects } from 'redux-loop'
 import uuid from 'uuid'
 
@@ -48,6 +47,3 @@ export const view = ({ model, dispatch }) =>
                 dispatch={action => dispatch(modify(id, action))}
                 key={id} />)}
     </div>
-
-export const connectedView =
-    Api.connectView(state => state.randomGifList, view)

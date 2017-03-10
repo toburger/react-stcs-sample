@@ -1,6 +1,5 @@
 import React from 'react'
 import { loop, getModel, getEffect, Effects } from 'redux-loop'
-import * as Api from './Api'
 import * as RandomGif from './RandomGif'
 
 const MODIFY_LEFT = 'MODIFY_LEFT_RANDOMGIFTUPLE'
@@ -52,6 +51,3 @@ export const view = ({ model, dispatch }) =>
         <RandomGif.view model={model.leftRandomGif} dispatch={action => dispatch(modifyLeft(action))} />
         <RandomGif.view model={model.rightRandomGif} dispatch={action => dispatch(modifyRight(action))} />
     </div>
-
-export const connectedView =
-    Api.connectView(state => state.randomGifPair, view)

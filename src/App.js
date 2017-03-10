@@ -25,19 +25,28 @@ const reducer = {
   randomGifList: RandomGifList.reducer
 }
 
+const C = {
+  counter: Api.connect(state => state.counter, Counter.view),
+  counterPair: Api.connect(state => state.counterPair, CounterPair.view),
+  counterList: Api.connect(state => state.counterList, CounterList.view),
+  randomGif: Api.connect(state => state.randomGif, RandomGif.view),
+  randomGifPair: Api.connect(state => state.randomGifPair, RandomGifPair.view),
+  randomGifList: Api.connect(state => state.randomGifList, RandomGifList.view)
+}
+
 const view = () =>
   <div>
-    <Counter.connectedView />
+    <C.counter />
     <hr />
-    <CounterPair.connectedView />
+    <C.counterPair />
     <hr />
-    <CounterList.connectedView />
+    <C.counterList />
     <hr />
-    <RandomGif.connectedView />
+    <C.randomGif />
     <hr />
-    <RandomGifPair.connectedView />
+    <C.randomGifPair />
     <hr />
-    <RandomGifList.connectedView />
+    <C.randomGifList />
   </div>
 
 const App = Api.simpleApp(init, reducer, view)

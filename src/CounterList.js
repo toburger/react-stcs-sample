@@ -1,6 +1,5 @@
 import React from 'react'
 import * as Counter from './Counter'
-import * as Api from './Api'
 import uuid from 'uuid'
 
 const ADD = 'ADD_LIST'
@@ -58,6 +57,3 @@ export const view = ({ model, dispatch }) =>
         <hr />
         <button onClick={() => dispatch(add())}>Add</button>
     </div>
-
-export const connectedView =
-    Api.connectView(state => state.counterList, view)

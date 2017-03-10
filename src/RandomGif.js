@@ -1,6 +1,5 @@
 import React from 'react'
 import {loop, Effects} from 'redux-loop'
-import * as Api from './Api'
 import R from 'ramda'
 import superagent from 'superagent'
 import Promise from 'bluebird'
@@ -70,6 +69,3 @@ export const view = ({ model, dispatch }) =>
         <button
             onClick={() => dispatch(requestMore())}>More</button>
     </div>
-
-export const connectedView =
-    Api.connectView(state => state.randomGif, view)

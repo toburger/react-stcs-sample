@@ -1,6 +1,5 @@
 import React from 'react'
 import * as Counter from './Counter'
-import { connectView } from './Api'
 
 export const init = (first, second) => ({
     first: Counter.init(first),
@@ -36,5 +35,3 @@ export const view = ({ model, dispatch }) =>
         <Counter.view model={model.first} dispatch={action => dispatch(modifyFirst(action))} />
         <Counter.view model={model.second} dispatch={action => dispatch(modifySecond(action))} />
     </div>
-
-export const connectedView = connectView(state => state.counterPair, view)
