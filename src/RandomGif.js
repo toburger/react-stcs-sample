@@ -64,6 +64,7 @@ export const reducer = (state, action) => {
 export const view = ({ model, dispatch }) =>
     <div>
         <img
+            alt=""
             src={R.prop('gifUrl', model)}
             style={{width: '200px'}} />
         <button
