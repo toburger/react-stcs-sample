@@ -1,7 +1,7 @@
 import React from 'react'
 import * as RandomGif from './RandomGif'
-import { loop, Effects } from 'redux-loop'
-import uuid from 'uuid'
+import { loop, Cmd } from 'redux-loop'
+import { v4 as uuid } from 'uuid'
 
 const MODIFY = 'MODIFY_RANDOMGIFLIST'
 
@@ -17,8 +17,8 @@ export const init = (xs = []) => {
     const effects = inits.map(([id,[,x]]) => [id, x])
     return loop(
         models,
-        Effects.batch(effects.map(([id,e]) =>
-            Effects.lift(e, modify, id))))
+        Cmd.list(effects.map(([id,e]) =>
+            Cmd.map(e, modify, id))))
 }
 
 export const reducer = (state, action) => {
@@ -26,16 +26,16 @@ export const reducer = (state, action) => {
         case MODIFY:
             const gifLoopList = state.map(([id, topic]) => {
                 if (id !== action.id) {
-                    return loop([id, topic], Effects.none())
+                    return loop([id, topic], Cmd.none)
                 }
                 const [model, effect] = RandomGif.reducer(topic, action.action)
-                return loop([id, model], Effects.lift(effect, modify, id))
+                return loop([id, model], Cmd.map(effect, modify, id))
             })
             return loop(
                 gifLoopList.map(([x]) => x),
-                Effects.batch(gifLoopList.map(([,x]) => x)))
+                Cmd.list(gifLoopList.map(([,x]) => x)))
         default:
-            return loop(state, Effects.none())
+            return loop(state, Cmd.none)
     }
 }
 

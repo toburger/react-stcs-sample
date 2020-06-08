@@ -1,5 +1,5 @@
 import React from 'react'
-import { loop, getModel, getEffect, Effects } from 'redux-loop'
+import { loop, getModel, getCmd, Cmd } from 'redux-loop'
 import * as RandomGif from './RandomGif'
 
 const MODIFY_LEFT = 'MODIFY_LEFT_RANDOMGIFTUPLE'
@@ -21,9 +21,9 @@ export const init = (topic1, topic2) => {
     return loop({
         leftRandomGif: getModel(leftRandomGif),
         rightRandomGif: getModel(rightRandomGif)
-    }, Effects.batch([
-        Effects.lift(getEffect(leftRandomGif), modifyLeft),
-        Effects.lift(getEffect(rightRandomGif), modifyRight)
+    }, Cmd.list([
+        Cmd.map(getCmd(leftRandomGif), modifyLeft),
+        Cmd.map(getCmd(rightRandomGif), modifyRight)
     ]))
 }
 
@@ -34,15 +34,15 @@ export const reducer = (state, action) => {
             return loop({
                 ...state,
                 leftRandomGif: getModel(leftModel)
-            }, Effects.lift(getEffect(leftModel), modifyLeft))
+            }, Cmd.map(getCmd(leftModel), modifyLeft))
         case MODIFY_RIGHT:
             const rightModel = RandomGif.reducer(state.rightRandomGif, action.action)
             return loop({
                 ...state,
                 rightRandomGif: getModel(rightModel)
-            }, Effects.lift(getEffect(rightModel), modifyRight))
+            }, Cmd.map(getCmd(rightModel), modifyRight))
         default:
-            return loop(state, Effects.none())
+            return loop(state, Cmd.none)
     }
 }
 

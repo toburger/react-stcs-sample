@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Counter from './Counter'
-import uuid from 'uuid'
+import { v4 as uuid } from 'uuid'
 
 const ADD = 'ADD_LIST'
 const REMOVE = 'REMOVE_LIST'

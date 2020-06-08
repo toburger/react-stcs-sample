@@ -1,6 +1,6 @@
 import React from 'react'
-import {loop, Effects} from 'redux-loop'
-import R from 'ramda'
+import { loop, Cmd } from 'redux-loop'
+import * as R from 'ramda'
 import * as Http from './Http'
 
 const REQUEST_MORE = 'REQUEST_MORE'
@@ -39,22 +39,22 @@ export const init = topic =>
             topic,
             gifUrl: ''
         },
-        Effects.promise(fetchRandomGif, topic))
-        //Effects.none())
+        Cmd.run(fetchRandomGif, { args: [topic] }))
+        //Cmd.none())
 
 export const reducer = (state, action) => {
     switch (action.type) {
         case REQUEST_MORE:
-            return loop(state, Effects.promise(fetchRandomGif, state.topic))
+            return loop(state, Cmd.run(fetchRandomGif, { args: [state.topic] }))
         case REQUEST_ERROR:
-            return loop(state, Effects.none())
+            return loop(state, Cmd.none)
         case NEW_GIF:
             return loop({
                 ...state,
                 gifUrl: action.url
-            }, Effects.none())
+            }, Cmd.none)
         default:
-            return loop(state, Effects.none())
+            return loop(state, Cmd.none)
     }
 }
 

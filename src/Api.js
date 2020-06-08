@@ -1,9 +1,11 @@
 import React from 'react'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider, connect as reduxConnect } from 'react-redux'
-import { combineReducers, install, loop, Effects, isLoop, getEffect, getModel } from 'redux-loop'
-import R from 'ramda'
-import createLogger from 'redux-logger'
+import { combineReducers, install, loop, Cmd, isLoop, getCmd, getModel } from 'redux-loop'
+import * as R from 'ramda'
+import { createLogger } from 'redux-logger'
+
+console.log(Cmd)
 
 export const log = x => {
     console.log(x)
@@ -12,8 +14,8 @@ export const log = x => {
 
 export const init = (inits = []) => {
   const models = R.map(x => isLoop(x) ? getModel(x) : x, inits)
-  const effects = R.map(getEffect, R.filter(isLoop, inits))
-  return loop(models, Effects.batch(Object.values(effects)))
+  const effects = R.map(getCmd, R.filter(isLoop, inits))
+  return loop(models, Cmd.list(Object.values(effects)))
 }
 
 export const connect = (f, C) =>
